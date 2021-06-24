@@ -1,0 +1,188 @@
+import java.io.*;
+import java.util.*;
+class proj
+{
+    static void main()throws Exception
+    {
+
+        String owner,ex,w;int room,days,floor,family,ch=0,r=0,co=0;
+        char rr;
+        int arr[][];double cost;
+        double z=0.0;
+        DataInputStream k=new DataInputStream(System.in);
+
+        while(ch!=4)
+        {
+            System.out.println("\tMENU");
+
+            System.out.println("PRESS 0 FOR DELETE PREVIOUS DATABASE AND CREATE A NEW ONE");
+
+            System.out.println("PRESS 1 FOR RO0M BOOKING" );
+
+            System.out.println("PRESS 2 FOR PRINTING DETAILS OF EVERY FILLED ROOM");
+
+            System.out.println("PRESS 3 FOR SEARCHING A PARTICULAR ROOM");
+
+            System.out.println("PRESS 4 TO EXIT\nPRESS R TO RECALL THE MAIN SCREEN");
+            ch=Integer.parseInt(k.readLine());
+            switch(ch)
+            {
+                case 0:
+                FileReader a0=new FileReader("DATA.DAT");
+                BufferedReader b0=new BufferedReader(a0);
+                FileWriter x0=new FileWriter("temp.DAT");
+                BufferedWriter y0=new BufferedWriter(x0);
+                PrintWriter p0=new PrintWriter(y0);
+                b0.close();
+                p0.close();
+                File P0=new File("DATA.DAT");
+                File Q0= new File("temp.DAT");
+                P0.delete();
+                Q0.renameTo(P0);
+                FileWriter a=new FileWriter("DATA.DAT",true);
+                BufferedWriter b=new BufferedWriter(a);
+                PrintWriter p=new PrintWriter(b);
+                FileReader a1=new FileReader("DATA.DAT");
+                BufferedReader b1=new BufferedReader(a1);
+
+                System.out.println("HOTEL NAME");
+                String s1=k.readLine();
+                System.out.println("enter your hotels floor with room");
+                r=Integer.parseInt(k.readLine());
+                System.out.println("enter your total no. of room in a floor");
+                co=Integer.parseInt(k.readLine());
+                System.out.println("cost for one day stay");
+                z=Double.parseDouble(k.readLine());
+
+                p.println(r);
+                p.println(co);
+                p.println(z);
+                p.println("\t"+s1);
+                p.close();
+                break;
+
+                case 1:
+                arr=new int[r][co];
+
+                FileWriter aa=new FileWriter("DATA.DAT",true);
+                BufferedWriter bb=new BufferedWriter(aa);
+                PrintWriter pp=new PrintWriter(bb);
+                FileReader a11=new FileReader("DATA.DAT");
+                BufferedReader b11=new BufferedReader(a11);
+
+                System.out.println("enter name under which room has to be booked");
+                owner=k.readLine();
+                System.out.println("which floor do u chose");
+                floor=Integer.parseInt(k.readLine());
+
+                System.out.println("room vacant on this floor are");
+                for(int x=0;x<=co-1;x++)
+                {
+                    if(arr[floor-1][x]==0)
+                    {
+                        if((x+1)<10)
+                        {
+                            System.out.print(floor+("0")+(x+1));
+                        }
+                        else
+                            System.out.print(floor+""+(x+1));
+
+                        if(x/2<=(floor-1))
+                        {
+                            System.out.println();
+                        }
+                    }
+                }
+                System.out.println("enter room no");
+                room=Integer.parseInt(k.readLine());
+                arr[floor-1][(room%100)-1]=room;
+                System.out.println("Total no. of people");
+                family=Integer.parseInt(k.readLine());
+                System.out.println("no. of day's you wish to spend");
+                days=Integer.parseInt(k.readLine());
+
+                cost=z*(double)days;  
+                System.out.println("total expenditure on room =  "+cost+"\n\n\n");
+
+                pp.println(owner);
+                pp.println(room);
+                pp.println(days);
+                pp.println(family);
+                pp.println(cost);
+
+                System.out.println("Press y to book another room else press n");
+
+                pp.close();
+                System.out.println("\n       YOUR FILE IS SAVED");
+                break;
+
+                case 2:
+                FileReader a2=new FileReader("DATA.DAT");
+                BufferedReader b2=new BufferedReader(a2);
+                String ks=b2.readLine();ks=b2.readLine();ks=b2.readLine();
+                String h2=b2.readLine();
+                System.out.println("\t"+h2);
+                System.out.println(" \t"+"ROOM DETAILS"+"\n");
+                while((owner=b2.readLine())!=null)
+                {
+                    room=Integer.parseInt(b2.readLine());
+                    days=Integer.parseInt(b2.readLine());
+                    family=Integer.parseInt(b2.readLine());
+                    cost=Double.parseDouble(b2.readLine());
+
+                    System.out.println("NAME OF OWNER = "+owner);
+                    System.out.println("ROOM NO. = "+room);
+                    System.out.println("NO. OF DAYS= "+days);
+                    System.out.println("NO. OF FAMILY MEMBERS = "+family);
+                    System.out.println("TOTAL EXPENDITURE = "+cost);
+
+                }
+                b2.close();
+
+                break;
+                case 3:
+
+                FileReader a3=new FileReader("DATA.DAT");
+                BufferedReader b3=new BufferedReader(a3);
+                Scanner sc3=new Scanner(System.in);
+                System.out.println("enter room to search");
+                int r3=sc3.nextInt();
+                String ks3=b3.readLine();ks3=b3.readLine();ks3=b3.readLine();
+                String h=b3.readLine();
+                System.out.println("\t"+h);
+                System.out.println(" \t"+"ROOM DETAILS"+"\n");
+                while((owner=b3.readLine())!=null)
+                {
+                    room=Integer.parseInt(b3.readLine());
+                    days=Integer.parseInt(b3.readLine());
+                    family=Integer.parseInt(b3.readLine());
+                    cost=Double.parseDouble(b3.readLine());
+
+                    if(room==r3)
+                    {
+                        System.out.println("NAME OF OWNER = "+owner);
+                        System.out.println("ROOM NO. = "+room);
+                        System.out.println("NO. OF DAYS= "+days);
+                        System.out.println("NO. OF FAMILY MEMBERS = "+family);
+                        System.out.println("TOTAL EXPENDITURE = "+cost);
+
+                    }
+                }
+                b3.close();
+                System.out.println("\n         SEARCH FINISHED");
+                break;
+
+               
+                case 6: System.exit(1);
+                break;
+                default:if(ch!=4&&ch!=0)
+                    System.out.println("INVALID CHOICE\n");
+            }
+            System.out.println("\tTHANKS FOR USING ");
+            String recall=k.readLine();
+            if(recall.equals("r")||recall.equals("R"))
+                System.out.print("\f");
+        }
+        System.out.println("\t THANKS FOR USING");
+    }
+}
